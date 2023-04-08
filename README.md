@@ -28,5 +28,7 @@ The gradient/delta is calculated using the following formula which you can also 
 
 [In Depth Explanation of Gradient Descent](https://towardsdatascience.com/linear-regression-using-gradient-descent-97a6c8700931)
 
+[Good Video on the Math Behind Backprop](https://www.youtube.com/watch?v=tIeHLnjs5U8)
+
 ## License
 This project is licensed under the MIT License (See LICENSE file for more info)

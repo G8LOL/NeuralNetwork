@@ -16,7 +16,7 @@ public final class InputLayer extends AbstractLayer {
 
     private AbstractLayer prevLayer, nextLayer;
 
-    public InputLayer(int numInput, int numOutput, WeightInitialization weightInitialization) {
+    public InputLayer(final int numInput, final int numOutput, final WeightInitialization weightInitialization) {
         //input number would be the amount of features (e.g 2 in XOR example)
 
         //output is basically the amount of input neurons for the hidden layer (e.g 4)
@@ -28,17 +28,17 @@ public final class InputLayer extends AbstractLayer {
         this.neurons = new Neuron[numInput];
 
         for (int i = 0; i < numInput; i++) {
-            Neuron neuron = new Neuron(numInput, numOutput, weightInitialization, true);
+            final Neuron neuron = new Neuron(numInput, numOutput, weightInitialization, true);
 
             neurons[i] = neuron;
         }
     }
 
     @Override
-    public final void computeForward(double[] input, double[][] weights) {
+    public final void computeForward(final double[] input, final double[][] weights) {
         int index = 0;
 
-        for (Neuron neuron : neurons) {
+        for (final Neuron neuron : neurons) {
             neuron.setInput(input[index]);
 
             index++;
@@ -47,7 +47,7 @@ public final class InputLayer extends AbstractLayer {
 
     @Override
     public final double[] getOutput() {
-        double[] output = new double[neurons.length];
+        final double[] output = new double[neurons.length];
 
         for (int i = 0; i < neurons.length; i++) {
             output[i] = neurons[i].getOutput();
@@ -58,12 +58,9 @@ public final class InputLayer extends AbstractLayer {
 
     @Override
     public final double[][] getWeights() {
-        //double[] outputWeights = new double[neurons.w]
-        double[][] weights = new double[numOutput][numInput];
+        final double[][] weights = new double[numOutput][numInput];
 
         //so each input neuron will have numOutput amount of connections connecting to neurons in the hidden layer
-
-        //System.out.println("aa " + numInput + " " + numOutput);
 
         //rows
         for (int i = 0; i < numOutput; i++) {
@@ -78,7 +75,7 @@ public final class InputLayer extends AbstractLayer {
     }
 
     @Override
-    public final void setWeights(double[][] weights) {
+    public final void setWeights(final double[][] weights) {
         for (int i = 0; i < neurons.length; i++) {
             //columns
             for (int a = 0; a < neurons[i].getConnections().length; a++) {
@@ -91,7 +88,7 @@ public final class InputLayer extends AbstractLayer {
     }
 
     @Override
-    public final void setBias(double[] outputLayerBias) {
+    public final void setBias(final double[] outputLayerBias) {
         for (int i = 0; i < neurons.length; i++) {
             neurons[i].setBias(outputLayerBias[i]);
         }
@@ -99,7 +96,7 @@ public final class InputLayer extends AbstractLayer {
 
     @Override
     public final double[] getBias() {
-        double[] bias = new double[neurons.length];
+        final double[] bias = new double[neurons.length];
 
         for (int i = 0; i < neurons.length; i++) {
             bias[i] = neurons[i].getBias();
@@ -114,7 +111,7 @@ public final class InputLayer extends AbstractLayer {
     }
 
     @Override
-    public final void setPrevLayer(AbstractLayer prevLayer) {
+    public final void setPrevLayer(final AbstractLayer prevLayer) {
         this.prevLayer = prevLayer;
     }
 
@@ -124,7 +121,7 @@ public final class InputLayer extends AbstractLayer {
     }
 
     @Override
-    public final void setNextLayer(AbstractLayer nextLayer) {
+    public final void setNextLayer(final AbstractLayer nextLayer) {
         this.nextLayer = nextLayer;
     }
 

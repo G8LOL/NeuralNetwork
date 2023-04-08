@@ -30,7 +30,7 @@ public final class DenseHiddenLayer extends AbstractLayer {
         neurons = new Neuron[numInput];
 
         for (int i = 0; i < numInput; i++) {
-            Neuron neuron = new Neuron(numInput, numOutput, weightInitialization,false);
+            final Neuron neuron = new Neuron(numInput, numOutput, weightInitialization,false);
 
             neurons[i] = neuron;
         }
@@ -42,7 +42,7 @@ public final class DenseHiddenLayer extends AbstractLayer {
     }
 
     @Override
-    public final void setPrevLayer(AbstractLayer prevLayer) {
+    public final void setPrevLayer(final AbstractLayer prevLayer) {
         this.prevLayer = prevLayer;
     }
 
@@ -52,7 +52,7 @@ public final class DenseHiddenLayer extends AbstractLayer {
     }
 
     @Override
-    public final void setNextLayer(AbstractLayer nextLayer) {
+    public final void setNextLayer(final AbstractLayer nextLayer) {
         this.nextLayer = nextLayer;
     }
 
@@ -70,7 +70,7 @@ public final class DenseHiddenLayer extends AbstractLayer {
     }
 
     @Override
-    public final void computeForward(double[] prevInput, double[][] weights) {
+    public final void computeForward(final double[] prevInput, final double[][] weights) {
         //first find the weighted sum
         //weighted_sum = (input_1 * weight_1) + (input_2 * weight_2) + ... + (input_n * weight_n)
 
@@ -94,7 +94,7 @@ public final class DenseHiddenLayer extends AbstractLayer {
      * @param outputErrors
      * @return
      */
-    public final double[] computeBackprop(AbstractLayer nextLayer, double[] hiddenLayerOut, double[] outputErrors) {
+    public final double[] computeBackprop(final AbstractLayer nextLayer, final double[] hiddenLayerOut, final double[] outputErrors) {
         /*
          * same thing as output layer but calculate error using the output layers weights
          *
@@ -102,7 +102,7 @@ public final class DenseHiddenLayer extends AbstractLayer {
          *
          * im using normal gradient descent for now ＞﹏＜
          */
-        double[] hiddenErrors = new double[neurons.length];
+        final double[] hiddenErrors = new double[neurons.length];
 
         for (int i = 0; i < neurons.length; i++) {
             double error = 0.0;
@@ -124,8 +124,8 @@ public final class DenseHiddenLayer extends AbstractLayer {
      * @param inputLayerOut
      * @param learningRate
      */
-    public final void updateWeights(AbstractLayer prevLayer, double[] hiddenErrors, double[] inputLayerOut, double learningRate) {
-        double[][] hiddenWeights = prevLayer.getWeights();
+    public final void updateWeights(final AbstractLayer prevLayer, final double[] hiddenErrors, final double[] inputLayerOut, final double learningRate) {
+        final double[][] hiddenWeights = prevLayer.getWeights();
 
         for (int i = 0; i < prevLayer.getNeurons().length; i++) {
             for (int j = 0; j < neurons.length; j++) {
@@ -141,8 +141,8 @@ public final class DenseHiddenLayer extends AbstractLayer {
      * @param hiddenErrors
      * @param learningRate
      */
-    public final void updateBiases(double[] hiddenErrors, double learningRate) {
-        double[] hiddenBias = getBias();
+    public final void updateBiases(final double[] hiddenErrors, final double learningRate) {
+        final double[] hiddenBias = getBias();
 
         for (int i = 0; i < neurons.length; i++) {
             hiddenBias[i] += learningRate * hiddenErrors[i];
@@ -158,7 +158,7 @@ public final class DenseHiddenLayer extends AbstractLayer {
 
     @Override
     public final double[] getBias() {
-        double[] bias = new double[neurons.length];
+        final double[] bias = new double[neurons.length];
 
         for (int i = 0; i < neurons.length; i++) {
             bias[i] = neurons[i].getBias();
@@ -186,7 +186,7 @@ public final class DenseHiddenLayer extends AbstractLayer {
         // 0 1 2 3
         // 4 5 6 7
 
-        double[][] weights = new double[numOutput][numInput];
+        final double[][] weights = new double[numOutput][numInput];
 
         //so each input neuron will have numOutput amount of connections connecting to neurons in the hidden layer
 
@@ -205,7 +205,7 @@ public final class DenseHiddenLayer extends AbstractLayer {
     }
 
     @Override
-    public final void setWeights(double[][] weights) {
+    public final void setWeights(final double[][] weights) {
         for (int i = 0; i < neurons.length; i++) {
             //columns
             for (int a = 0; a < neurons[i].getConnections().length; a++) {
@@ -216,7 +216,7 @@ public final class DenseHiddenLayer extends AbstractLayer {
     }
 
     @Override
-    public final void setBias(double[] hiddenLayerBias) {
+    public final void setBias(final double[] hiddenLayerBias) {
         for (int i = 0; i < neurons.length; i++) {
             neurons[i].setBias(hiddenLayerBias[i]);
         }

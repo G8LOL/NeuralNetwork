@@ -14,15 +14,15 @@ public final class Connection {
         this.weight = (new Random()).nextDouble() - 0.5;
     }
 
-    public Connection(double weight) {
+    public Connection(final double weight) {
         this.weight = weight;
     }
 
-    public double getWeight() {
+    public final double getWeight() {
         return weight;
     }
 
-    public void setWeight(double weight) {
+    public final void setWeight(final double weight) {
         this.weight = weight;
     }
 

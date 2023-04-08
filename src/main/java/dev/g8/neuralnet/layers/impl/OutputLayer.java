@@ -33,7 +33,7 @@ public final class OutputLayer extends AbstractLayer {
         this.neurons = new Neuron[numInput];
 
         for (int i = 0; i < numInput; i++) {
-            Neuron neuron = new Neuron(numInput, numOutput, weightInitialization, false);
+            final Neuron neuron = new Neuron(numInput, numOutput, weightInitialization, false);
 
             neurons[i] = neuron;
         }
@@ -48,14 +48,14 @@ public final class OutputLayer extends AbstractLayer {
     }
 
     @Override
-    public final void computeForward(double[] prevInput, double[][] weights) {
+    public final void computeForward(final double[] prevInput, final double[][] weights) {
         //first find the weighted sum
         //weighted_sum = (input_1 * weight_1) + (input_2 * weight_2) + ... + (input_n * weight_n)
 
         //weights shape = input layer input neurons x hidden layer neuron count
         //eg 2 x 4
 
-        double[] outputs = new double[neurons.length];
+        final double[] outputs = new double[neurons.length];
 
         for (int i = 0; i < neurons.length; i++) {
             outputs[i] = neurons[i].computeFeedforward(prevInput, weights[i], activationFunction);
@@ -70,7 +70,7 @@ public final class OutputLayer extends AbstractLayer {
      * @param desired
      * @return
      */
-    public final double[] computeBackprop(double[] predicted, double[] desired) {
+    public final double[] computeBackprop(final double[] predicted, final double[] desired) {
         /*
          * this calculates the delta/error for each output neuron
          *
@@ -78,12 +78,12 @@ public final class OutputLayer extends AbstractLayer {
          * the derivative of the loss function with respect to the predicted output.
          */
 
-        double[] outputErrors = new double[neurons.length];
+        final double[] outputErrors = new double[neurons.length];
 
-        double[] errors = lossFunction.calculateDerivative(desired, predicted);
+        final double[] errors = lossFunction.calculateDerivative(desired, predicted);
 
         for (int i = 0; i < neurons.length; i++) {
-            double error = errors[i];
+            final double error = errors[i];
 
             outputErrors[i] = error * activationFunction.calculateDerivative(predicted[i]);
         }
@@ -100,8 +100,8 @@ public final class OutputLayer extends AbstractLayer {
      * @param hiddenLayerOut
      * @param learningRate
      */
-    public final void updateWeights(DenseHiddenLayer denseHiddenLayer, double[] outputErrors, double[] hiddenLayerOut, double learningRate) {
-        double[][] outputWeights = prevLayer.getWeights();
+    public final void updateWeights(final DenseHiddenLayer denseHiddenLayer, final double[] outputErrors, final double[] hiddenLayerOut, final double learningRate) {
+        final double[][] outputWeights = prevLayer.getWeights();
 
         for (int i = 0; i < denseHiddenLayer.getNeurons().length; i++) {
             for (int j = 0; j < neurons.length; j++) {
@@ -117,8 +117,8 @@ public final class OutputLayer extends AbstractLayer {
      * @param outputErrors
      * @param learningRate
      */
-    public final void updateBiases(double[] outputErrors, double learningRate) {
-        double[] outputBias = getBias();
+    public final void updateBiases(final double[] outputErrors, final double learningRate) {
+        final double[] outputBias = getBias();
 
         for (int i = 0; i < neurons.length; i++) {
             outputBias[i] += learningRate * outputErrors[i];
@@ -139,7 +139,7 @@ public final class OutputLayer extends AbstractLayer {
 
     @Override
     public final double[] getBias() {
-        double[] bias = new double[neurons.length];
+        final double[] bias = new double[neurons.length];
 
         for (int i = 0; i < neurons.length; i++) {
             bias[i] = neurons[i].getBias();
@@ -154,7 +154,7 @@ public final class OutputLayer extends AbstractLayer {
     }
 
     @Override
-    public final void setPrevLayer(AbstractLayer prevLayer) {
+    public final void setPrevLayer(final AbstractLayer prevLayer) {
         this.prevLayer = prevLayer;
     }
 
@@ -164,7 +164,7 @@ public final class OutputLayer extends AbstractLayer {
     }
 
     @Override
-    public final void setNextLayer(AbstractLayer nextLayer) {
+    public final void setNextLayer(final AbstractLayer nextLayer) {
         this.nextLayer = nextLayer;
     }
 
@@ -175,7 +175,7 @@ public final class OutputLayer extends AbstractLayer {
 
     @Override
     public final double[][] getWeights() {
-        double[][] weights = new double[numOutput][numInput];
+        final double[][] weights = new double[numOutput][numInput];
 
         for (int i = 0; i < numOutput; i++) {
             //columns
@@ -189,7 +189,7 @@ public final class OutputLayer extends AbstractLayer {
     }
 
     @Override
-    public final void setWeights(double[][] weights) {
+    public final void setWeights(final double[][] weights) {
         for (int i = 0; i < neurons.length; i++) {
             //columns
             for (int a = 0; a < neurons[i].getConnections().length; a++) {
@@ -202,7 +202,7 @@ public final class OutputLayer extends AbstractLayer {
     }
 
     @Override
-    public final void setBias(double[] outputLayerBias) {
+    public final void setBias(final double[] outputLayerBias) {
         for (int i = 0; i < neurons.length; i++) {
             neurons[i].setBias(outputLayerBias[i]);
         }

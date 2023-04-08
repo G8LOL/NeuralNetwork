@@ -15,19 +15,18 @@ public final class Neuron {
 
 	private boolean inputNeuron = false;
 
-	public Neuron(int numConnections, int numOutput, WeightInitialization weightInitialization) {
+	public Neuron(final int numConnections, final int numOutput, final WeightInitialization weightInitialization) {
 		this.output = 0;
 		this.error = 0;
 		this.bias = Math.random();
 
 		this.connections = new Connection[numOutput];
 
-		for (int i = 0; i < numOutput; i++) {
+		for (int i = 0; i < numOutput; i++)
 			this.connections[i] = new Connection(weightInitialization.initializeWeight(numConnections, numOutput));
-		}
 	}
 
-	public Neuron(int numConnections, int numOutput, WeightInitialization weightInitialization, boolean inputNeuron) {
+	public Neuron(final int numConnections, final int numOutput, final WeightInitialization weightInitialization, final boolean inputNeuron) {
 		this(numConnections, numOutput, weightInitialization);
 
 		this.inputNeuron = inputNeuron;
@@ -37,7 +36,7 @@ public final class Neuron {
 	 * get input value
 	 * @return
 	 */
-	public double getInput() {
+	public final double getInput() {
 		return input;
 	}
 
@@ -45,7 +44,7 @@ public final class Neuron {
 	 * set input value
 	 * @param input
 	 */
-	public void setInput(double input) {
+	public final void setInput(final double input) {
 		this.input = input;
 	}
 
@@ -53,7 +52,7 @@ public final class Neuron {
 	 * get output value
 	 * @return
 	 */
-	public double getOutput() {
+	public final double getOutput() {
 		return inputNeuron ? input : output;
 	}
 
@@ -61,7 +60,7 @@ public final class Neuron {
 	 * set output value
 	 * @param output
 	 */
-	public void setOutput(double output) {
+	public final void setOutput(final double output) {
 		this.output = output;
 	}
 
@@ -69,7 +68,7 @@ public final class Neuron {
 	 * get error value
 	 * @return
 	 */
-	public double getError() {
+	public final double getError() {
 		return error;
 	}
 
@@ -77,7 +76,7 @@ public final class Neuron {
 	 * set error value
 	 * @param error
 	 */
-	public void setError(double error) {
+	public final void setError(final double error) {
 		this.error = error;
 	}
 
@@ -85,7 +84,7 @@ public final class Neuron {
 	 * get bias value
 	 * @return
 	 */
-	public double getBias() {
+	public final double getBias() {
 		return bias;
 	}
 
@@ -93,7 +92,7 @@ public final class Neuron {
 	 * set bias value
 	 * @param bias
 	 */
-	public void setBias(double bias) {
+	public final void setBias(final double bias) {
 		this.bias = bias;
 	}
 
@@ -101,7 +100,7 @@ public final class Neuron {
 	 * get connections
 	 * @return
 	 */
-	public Connection[] getConnections() {
+	public final Connection[] getConnections() {
 		return connections;
 	}
 
@@ -109,7 +108,7 @@ public final class Neuron {
 	 * set connections
 	 * @param connections
 	 */
-	public void setConnections(Connection[] connections) {
+	public final void setConnections(final Connection[] connections) {
 		this.connections = connections;
 	}
 
@@ -117,12 +116,11 @@ public final class Neuron {
 	 * get weights (1D array)
 	 * @return
 	 */
-	public double[] getWeights() {
-		double[] weights = new double[connections.length];
+	public final double[] getWeights() {
+		final double[] weights = new double[connections.length];
 
-		for (int i = 0; i < connections.length; i++) {
+		for (int i = 0; i < connections.length; i++)
 			weights[i] = connections[i].getWeight();
-		}
 
 		return weights;
 	}
@@ -134,7 +132,7 @@ public final class Neuron {
 	 * @param activationFunction
 	 * @return
 	 */
-	public double computeFeedforward(double[] input, double[] weights, ActivationFunction activationFunction) {
+	public final double computeFeedforward(final double[] input, final double[] weights, final ActivationFunction activationFunction) {
 		double weightedSum = 0;
 
 		for (int i = 0; i < weights.length; i++) {

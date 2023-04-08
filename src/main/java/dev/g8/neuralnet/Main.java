@@ -14,7 +14,7 @@ import dev.g8.neuralnet.utils.objects.DataSet;
 public class Main {
 	
 	public static void main(String[] args) {
-		AbstractNetwork feedForwardNeuralNetwork = new FeedForwardNeuralNetwork.NetworkBuilder(FeedForwardNeuralNetwork.class)
+		final AbstractNetwork feedForwardNeuralNetwork = new FeedForwardNeuralNetwork.NetworkBuilder(FeedForwardNeuralNetwork.class)
 				.withLearningRate(0.1)
 				.withOptimizationAlgorithm(OptimizationAlgorithm.STOCHASTIC_GRADIENT_DESCENT)
 				.withLayers(

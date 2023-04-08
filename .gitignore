@@ -1,0 +1,12 @@
+# Default ignored files
+/shelf/
+/workspace.xml
+
+# Intellij
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Target
+target/

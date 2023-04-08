@@ -18,7 +18,7 @@ You then apply an activation function (e.g logistic sigmoid which maps inputs to
 
 logistic sigmoid formula:
 
-`1 / (1 + -x^e)`
+`1 / (1 + e^(-x))`
 
 The network is then trained using **back propagation** which basically just adjusts the weights and biases of the neurons in order to minimize the error between the actual output and the desired output. During this process, the errors are propagated through the layers in reverse, from the output to the input layer. To do this, we use have to use the chain rule of calculus to calculate the gradient of the error with respect to each weight and bias in the network. This gradient tells us how much we should adjust each weight and bias to reduce the error.
 

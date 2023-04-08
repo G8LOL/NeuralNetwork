@@ -20,14 +20,36 @@ public abstract class AbstractNetwork {
     protected double learningRate;
     protected OptimizationAlgorithm optimizationAlgorithm;
 
+    /**
+     * setup network (e.g setup layers)
+     */
     public abstract void setup();
 
+    /**
+     * train/fit network
+     * @param dataSet
+     * @param epochs
+     * @param batchSize
+     */
     public abstract void train(final DataSet dataSet, final int epochs, final int batchSize);
 
+    /**
+     * iterate through one set of data
+     * @param input
+     * @param output
+     */
     protected abstract void iterate(final double[] input, final double[] output);
 
+    /**
+     * predict output from input
+     * @param input
+     * @return
+     */
     public abstract DataSet predict(final DataSet input);
 
+    /**
+     * print network info
+     */
     public final void printNetwork() {
         System.out.println("Network: " + getClass().getSimpleName() + " - " + new Date());
         System.out.println("Num Layers: " + layers.size());

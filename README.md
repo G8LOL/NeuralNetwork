@@ -1,6 +1,6 @@
 # Neural Network
 
-A framework for neural networks written entirely in Java. Contains an implementation of a feed forward neural network (FFNN). Can be used for tasks such as classification, regression, and prediction (example XOR problem used for the FFNN).
+A framework for neural networks written entirely in Java. Contains an implementation of a multi-perceptron feed forward neural network (FFNN). Can be used for tasks such as classification, regression, and prediction (example XOR problem used for the FFNN).
 
 ![neural network](https://user-images.githubusercontent.com/66517997/230747863-c275fc71-dff6-4069-8d75-b81e76491d79.png)
 

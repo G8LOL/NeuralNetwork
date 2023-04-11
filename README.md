@@ -1,6 +1,8 @@
 # Neural Network
 
-A framework for neural networks written entirely in Java. Contains an implementation of a feed forward neural network (FFNN). Can be used for tasks such as classification, regression, and prediction (example XOR problem used for the FFNN).
+A framework for neural networks written entirely in Java. Contains an implementation of a multi-perceptron feed forward neural network (FFNN). Can be used for tasks such as classification, regression, and prediction (example XOR problem used for the FFNN).
+
+![neural network](https://user-images.githubusercontent.com/66517997/230747863-c275fc71-dff6-4069-8d75-b81e76491d79.png)
 
 ## How to use ##
 Clone the repo with Intellij or your IDE of choice. Make sure to use Java 17. **Main.java** contains the network architecture and the example XOR problem.
@@ -29,6 +31,11 @@ The gradient/delta is calculated using the following formula which you can also 
 [In Depth Explanation of Gradient Descent](https://towardsdatascience.com/linear-regression-using-gradient-descent-97a6c8700931)
 
 [Good Video on the Math Behind Backprop](https://www.youtube.com/watch?v=tIeHLnjs5U8)
+
+## TODO/For Later
+- Add Convolutional Layers
+- Add Recurrent Layers
+- Dropout Layer
 
 ## License
 This project is licensed under the MIT License (See LICENSE file for more info)

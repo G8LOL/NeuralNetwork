@@ -15,6 +15,8 @@ import java.lang.reflect.Constructor;
  */
 public abstract class AbstractLayer {
 
+    protected Mode mode;
+
     /**
      * forward propagation
      * @param input
@@ -93,5 +95,21 @@ public abstract class AbstractLayer {
      * @param abstractLayer
      */
     public abstract void setNextLayer(final AbstractLayer abstractLayer);
+
+    /**
+     * get mode
+     * @return
+     */
+    public Mode getMode() {
+        return mode;
+    }
+
+    /**
+     * set mode
+     * @param mode
+     */
+    public void setMode(final Mode mode) {
+        this.mode = mode;
+    }
 
 }

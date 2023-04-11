@@ -2,10 +2,12 @@ package dev.g8.neuralnet.network.impl;
 
 import dev.g8.neuralnet.layers.api.AbstractLayer;
 import dev.g8.neuralnet.layers.impl.DenseHiddenLayer;
+import dev.g8.neuralnet.layers.impl.DropoutLayer;
 import dev.g8.neuralnet.layers.impl.InputLayer;
 import dev.g8.neuralnet.layers.impl.OutputLayer;
 import dev.g8.neuralnet.network.api.AbstractNetwork;
 import dev.g8.neuralnet.utils.objects.DataSet;
+import dev.g8.neuralnet.layers.api.Mode;
 
 import java.util.*;
 
@@ -32,6 +34,8 @@ public final class FeedForwardNeuralNetwork extends AbstractNetwork {
 
 	@Override
 	public final void train(final DataSet dataSet, final int epochs, final int batchSize) {
+		layers.forEach(layer -> layer.setMode(Mode.TRAINING));
+
 		//will be used for optimization algorithms
 		switch (optimizationAlgorithm) {
 			case STOCHASTIC_GRADIENT_DESCENT -> {
@@ -85,8 +89,10 @@ public final class FeedForwardNeuralNetwork extends AbstractNetwork {
 	}
 
 	@Override
-	public final void iterate(final double[] input, final double[] output) {
-		//forward propagation
+    public final void iterate(final double[] input, final double[] output) {
+        layers.forEach(layer -> layer.setMode(Mode.TRAINING));
+
+        //forward propagation
 		double[] lastLayerOutput = input;
 		double[][] lastLayerWeights = null;
 
@@ -129,23 +135,31 @@ public final class FeedForwardNeuralNetwork extends AbstractNetwork {
 			if (layer instanceof InputLayer)
 				continue;
 
-			if (layer instanceof final OutputLayer outLayer) {
-				//compute error of output layer
-				final double[] outputErrors = outLayer.computeBackprop(layer.getOutput(), output);
+			switch (layer) {
+				case final OutputLayer outLayer -> {
+					//compute error of output layer
+					final double[] outputErrors = outLayer.computeBackprop(layer.getOutput(), output);
 
-				//update weights/biases
-				outLayer.updateWeights((DenseHiddenLayer) outLayer.getPrevLayer(), outputErrors, outLayer.getPrevLayer().getOutput(), learningRate);
-				outLayer.updateBiases(outputErrors, learningRate);
-			} else if (layer instanceof final DenseHiddenLayer hidLayer){
-				//AbstractLayer nextLayer = reversedLayers.get(reversedLayers.indexOf(layer) - 1);
+					//update weights/biases
+					outLayer.updateWeights(outLayer.getPrevLayer(), outputErrors, outLayer.getPrevLayer().getOutput(), learningRate);
+					outLayer.updateBiases(outputErrors, learningRate);
+				}
+				case final DenseHiddenLayer hidLayer -> {
+					//AbstractLayer nextLayer = reversedLayers.get(reversedLayers.indexOf(layer) - 1);
 
-				//compute error of hidden layer
-				final double[] hiddenErrors = hidLayer
-						.computeBackprop(hidLayer.getNextLayer(), hidLayer.getOutput(), hidLayer.getNextLayer().getOutputErrors());
+					//compute error of hidden layer
+					final double[] hiddenErrors = hidLayer
+							.computeBackprop(hidLayer.getNextLayer(), hidLayer.getOutput(), hidLayer.getNextLayer().getOutputErrors());
 
-				//update weights/biases
-				hidLayer.updateWeights(hidLayer.getPrevLayer(), hiddenErrors, layer.getPrevLayer().getOutput(), learningRate);
-				hidLayer.updateBiases(hiddenErrors, learningRate);
+					//update weights/biases
+					hidLayer.updateWeights(hidLayer.getPrevLayer(), hiddenErrors, layer.getPrevLayer().getOutput(), learningRate);
+					hidLayer.updateBiases(hiddenErrors, learningRate);
+				}
+				case final DropoutLayer dropLayer -> {
+					//compute error of dropout layer for use in next layer (eg would be dense hidden layer)
+					dropLayer.computeBackprop(dropLayer.getNextLayer().getOutputErrors());
+				}
+				default -> throw new IllegalStateException("Unexpected value: " + layer);
 			}
 		}
 	}
@@ -153,6 +167,8 @@ public final class FeedForwardNeuralNetwork extends AbstractNetwork {
 	@Override
 	public final DataSet predict(final DataSet input) {
 		final double[][] output = new double[input.size()][input.getInput(0).length];
+
+		layers.forEach(layer -> layer.setMode(Mode.PREDICTION));
 
 		//forward propagation
 		for (int i = 0; i < input.size(); i++) {
@@ -179,6 +195,8 @@ public final class FeedForwardNeuralNetwork extends AbstractNetwork {
 	 * @return the output
 	 */
 	private final double[] predict(final double[] input) {
+		layers.forEach(layer -> layer.setMode(Mode.PREDICTION));
+
 		//forward propagation
 		double[] lastLayerOutput = input;
 		double[][] lastLayerWeights = null;
@@ -194,7 +212,7 @@ public final class FeedForwardNeuralNetwork extends AbstractNetwork {
 	}
 
 	/**
-	 * get the error of the network using MSE owo
+	 * get the error of the network using MSE
 	 * @param dataSet
 	 * @return the error
 	 */

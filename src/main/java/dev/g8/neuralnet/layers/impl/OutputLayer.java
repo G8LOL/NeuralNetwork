@@ -95,15 +95,16 @@ public final class OutputLayer extends AbstractLayer {
 
     /**
      * update the weights of the output layer
-     * @param denseHiddenLayer
+     * @param abstractLayer - previous layer
      * @param outputErrors
      * @param hiddenLayerOut
      * @param learningRate
      */
-    public final void updateWeights(final DenseHiddenLayer denseHiddenLayer, final double[] outputErrors, final double[] hiddenLayerOut, final double learningRate) {
+    public final void updateWeights(final AbstractLayer abstractLayer, final double[] outputErrors, final double[] hiddenLayerOut, final double learningRate) {
         final double[][] outputWeights = prevLayer.getWeights();
 
-        for (int i = 0; i < denseHiddenLayer.getNeurons().length; i++) {
+        //shape is numOutput x numInput because we are going backwards
+        for (int i = 0; i < abstractLayer.getNeurons().length; i++) {
             for (int j = 0; j < neurons.length; j++) {
                 outputWeights[j][i] += learningRate * outputErrors[j] * hiddenLayerOut[i];
             }

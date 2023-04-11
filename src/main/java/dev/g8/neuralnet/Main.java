@@ -4,6 +4,7 @@ import dev.g8.neuralnet.functions.activation.ActivationFunction;
 import dev.g8.neuralnet.functions.loss.LossFunction;
 import dev.g8.neuralnet.initializations.WeightInitialization;
 import dev.g8.neuralnet.layers.impl.DenseHiddenLayer;
+import dev.g8.neuralnet.layers.impl.DropoutLayer;
 import dev.g8.neuralnet.layers.impl.InputLayer;
 import dev.g8.neuralnet.layers.impl.OutputLayer;
 import dev.g8.neuralnet.network.api.AbstractNetwork;
@@ -23,9 +24,11 @@ public class Main {
 						new DenseHiddenLayer(4, 4,
 								ActivationFunction.TANH,
 								WeightInitialization.XAVIER),
+						//new DropoutLayer(4, 0.1),
 						new DenseHiddenLayer(4, 1,
 								ActivationFunction.TANH,
 								WeightInitialization.XAVIER),
+						//new DropoutLayer(4, 0.3),
 						new OutputLayer(1, 1,
 								ActivationFunction.LOGISTIC_SIGMOID,
 								LossFunction.MEAN_SQUARED_ERROR,

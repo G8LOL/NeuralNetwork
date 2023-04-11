@@ -6,6 +6,8 @@ import dev.g8.neuralnet.initializations.WeightInitialization;
 import dev.g8.neuralnet.layers.api.AbstractLayer;
 
 /**
+ * fully connected layer
+ *
  * @author G8LOL
  * @since 4/5/2023
  */
@@ -100,7 +102,7 @@ public final class DenseHiddenLayer extends AbstractLayer {
          *
          * error variable is the sum of the output delta times the corresponding weight
          *
-         * im using normal gradient descent for now ＞﹏＜
+         * im using normal gradient descent for now
          */
         final double[] hiddenErrors = new double[neurons.length];
 
@@ -175,7 +177,7 @@ public final class DenseHiddenLayer extends AbstractLayer {
     @Override
     public final double[][] getWeights() {
         // rows    columns
-        // numOutput is the number of neurons in the next layer :3
+        // numOutput is the number of neurons in the next layer
         // numInput is the number of neurons in the current layer
         //this will allow us to create a matrix with the correct dimensions of all the weights
         // eg 4 neurons in current layer, 2 neurons in next layer

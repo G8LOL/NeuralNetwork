@@ -36,6 +36,7 @@ The gradient/delta is calculated using the following formula which you can also 
 - Add Convolutional Layers
 - Add Recurrent Layers
 - More Optimization Algos (Adam, RMSProp, etc)
+- More Regularization Techniques besides Dropout (l1, l2, early stopping)
 
 ## License
 This project is licensed under the MIT License (See LICENSE file for more info)
